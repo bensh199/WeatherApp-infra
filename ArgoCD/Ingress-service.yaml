@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: argocd-ingress
+  namespace: argocd
+  annotations:
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: instance
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:il-central-1:654654166113:certificate/a87578f3-7806-45c0-9f45-475753d137e1
+
+spec:
+  rules:
+  - host: argocd.whats-the-weather.com  # Set your desired hostname here
+    http:
+      paths:
+      - path: /*
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: my-argo-cd-argocd-server
+            port:
+              number: 80
