@@ -1,6 +1,5 @@
 #!/bin/bash
 
-region="<your region>"
 cluster_name="<your cluster name>"
 account_ID="<your account ID>"
 

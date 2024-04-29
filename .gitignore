@@ -1,1 +1,6 @@
 *personal*
+Tests-2
+go*
+.terraform*
+*tfstate*
+.DS_Store

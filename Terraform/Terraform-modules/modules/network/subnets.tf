@@ -3,6 +3,7 @@ resource "aws_subnet" "Private-Lab4-il-central-1a" {
   vpc_id            = aws_vpc.main.id
   cidr_block        = "10.0.0.0/20"
   availability_zone = "il-central-1a"
+  map_public_ip_on_launch = false
 
   tags = {
     "Name"                              = "Private-Lab4-il-central-1a"
@@ -16,6 +17,7 @@ resource "aws_subnet" "Private-Lab4-il-central-1b" {
   vpc_id            = aws_vpc.main.id
   cidr_block        = "10.0.16.0/20"
   availability_zone = "il-central-1b"
+  map_public_ip_on_launch = false
 
   tags = {
     "Name"                              = "Private-Lab4-il-central-1b"

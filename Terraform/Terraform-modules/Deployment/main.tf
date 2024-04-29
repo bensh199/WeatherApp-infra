@@ -22,7 +22,7 @@ module "iam" {
 
 resource "null_resource" "ArgoCD-Init-Script" {
   provisioner "local-exec" {
-    command = "sh ~/Documents/WeatherApp-EKS-Helm/ArgoCD/ArgoCD-Init.sh"
+    command = "sh ~/Documents/WeatherApp-EKS-Helm/WeatherApp-infra/ArgoCD/ArgoCD-Init-personal.sh"
   }
     # Execute the local-exec provisioner after all modules have been deployed
   depends_on = [module.network, module.eks, module.iam]
