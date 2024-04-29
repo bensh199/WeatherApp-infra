@@ -1,12 +1,9 @@
 package test
 
 import (
-	"crypto/tls"
 	"testing"
 	"time"
 	"net/http"
-
-	http_helper "github.com/gruntwork-io/terratest/modules/http-helper"
 	"github.com/gruntwork-io/terratest/modules/terraform"
 )
 
