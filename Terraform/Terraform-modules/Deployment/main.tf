@@ -31,7 +31,7 @@
 
 resource "null_resource" "ArgoCD-Init-Script" {
   provisioner "local-exec" {
-    command = "sh ${var.ROOT_PATH}/WeatherApp-infra/ArgoCD/ArgoCD-Init.sh --account_ID=${var.ACCOUNT_ID} --region=${var.aws_region} --cluster_name=${module.eks.cluster_name}"
+    command = "sh ${var.ROOT_PATH}/WeatherApp-infra/ArgoCD/ArgoCD-Init.sh --account_ID=${data.aws_caller_identity.current.account_id} --region=${var.aws_region} --cluster_name=${module.eks.cluster_name}"
   }
   # command = "sh ${var.ROOT_PATH}/WeatherApp-infra/ArgoCD/ArgoCD-Init.sh --account_ID=${var.ACCOUNT_ID} --region=${var.aws_region} --cluster_name=${module.eks.cluster_name}"
     # Execute the local-exec provisioner after all modules have been deployed

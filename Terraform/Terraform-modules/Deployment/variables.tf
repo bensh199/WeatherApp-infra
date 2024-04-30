@@ -25,14 +25,3 @@ variable "vpc_cidr" {
 variable "ROOT_PATH" {
   description = "Root path for the project"
 }
-
-data "aws_caller_identity" "current" {}
-
-locals {
-  account_id = data.aws_caller_identity.current.account_id
-}
-
-variable "ACCOUNT_ID" {
-  description = "AWS Account ID"
-  default     = local.account_id
-}
