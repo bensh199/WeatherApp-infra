@@ -1,3 +1,12 @@
+terraform {
+  backend "s3" {
+    bucket         = "weatherapp-eks-state-backend"
+    key            = "terraform.tfstate"
+    region         = "il-central-1"
+    dynamodb_table = "WeatherApp-Eks-state-backend"
+  }
+}
+
 # Set up the network module
 module "network" {
   source                 = "../modules/network"
@@ -22,7 +31,7 @@ module "iam" {
 
 resource "null_resource" "ArgoCD-Init-Script" {
   provisioner "local-exec" {
-    command = "sh ~/Documents/WeatherApp-EKS-Helm/WeatherApp-infra/ArgoCD/ArgoCD-Init-personal.sh"
+    command = "sh $(ROOT_PATH)/WeatherApp-infra/ArgoCD/ArgoCD-Init-personal.sh"
   }
     # Execute the local-exec provisioner after all modules have been deployed
   depends_on = [module.network, module.eks, module.iam]
