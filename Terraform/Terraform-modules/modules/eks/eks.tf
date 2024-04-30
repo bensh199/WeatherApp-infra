@@ -1,6 +1,6 @@
 # Create IAM role for the EKS cluster
 resource "aws_iam_role" "Lab4-EKS" {
-  name = "eks-cluster-Lab4-EKS"
+  name = var.cluster_name
 
   assume_role_policy = <<POLICY
 {
