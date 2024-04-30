@@ -28,7 +28,11 @@ variable "ROOT_PATH" {
 
 data "aws_caller_identity" "current" {}
 
+locals {
+  account_id = data.aws_caller_identity.current.account_id
+}
+
 variable "ACCOUNT_ID" {
   description = "AWS Account ID"
-  default     = data.aws_caller_identity.current.account_id
+  default     = local.account_id
 }
