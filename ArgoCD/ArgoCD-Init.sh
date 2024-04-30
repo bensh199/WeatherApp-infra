@@ -1,9 +1,28 @@
 #!/bin/bash
 
-region="<your region>"
-cluster_name="<your cluster name>"
-account_ID="<your account ID>"
+region=""
+cluster_name=""
+account_ID=""
 
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        --region=*)
+            region="${1#*=}"
+            ;;
+        --cluster_name=*)
+            cluster_name="${1#*=}"
+            ;;
+        --account_ID=*)
+            account_ID="${1#*=}"
+            ;;
+
+        *)
+            echo "Invalid option: $1"
+            exit 1
+            ;;
+    esac
+    shift
+done
 
 echo "## Configuring kube config ##"
 
