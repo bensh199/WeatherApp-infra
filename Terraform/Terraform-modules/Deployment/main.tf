@@ -1,11 +1,11 @@
-# terraform {
-#   backend "s3" {
-#     bucket         = "weatherapp-eks-state-backend"
-#     key            = "terraform.tfstate"
-#     region         = "il-central-1"
-#     dynamodb_table = "WeatherApp-Eks-state-backend"
-#   }
-# }
+terraform {
+  backend "s3" {
+    bucket         = "weatherapp-eks-state-backend"
+    key            = "terraform.tfstate"
+    region         = "il-central-1"
+    dynamodb_table = "WeatherApp-Eks-state-backend"
+  }
+}
 
 # Set up the network module
 module "network" {
