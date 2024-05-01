@@ -5,28 +5,25 @@ cluster_name=""
 account_ID=""
 Path_To_Root=""
 
-while [[ $# -gt 0 ]]; do
-    case "$1" in
-        --region=*)
-            region="${1#*=}"
-            ;;
-        --cluster_name=*)
-            cluster_name="${1#*=}"
-            ;;
-        --account_ID=*)
-            account_ID="${1#*=}"
-            ;;
-        --Path_To_Root=*)
-            Path_To_Root="${1#*=}"
-            ;;
-
-        *)
+while getopts r:c:a:p: flag
+do
+    case "${flag}" in
+        r)  
+            region=${OPTARG};;
+        c)  
+            cluster_name=${OPTARG};;
+        a)  
+            account_ID=${OPTARG};;
+        p)  
+            Path_To_Root=${OPTARG};;
+        *)  
             echo "Invalid option: $1"
-            exit 1
-            ;;
+            exit 1;;
     esac
-    shift
 done
+echo "Username: $username";
+echo "Age: $age";
+echo "Full Name: $fullname"; 
 
 echo "$region"
 
