@@ -24,6 +24,13 @@ while [[ $# -gt 0 ]]; do
     shift
 done
 
+echo "$region"
+
+echo "$cluster_name"
+
+echo "$region"
+
+
 echo "## Configuring kube config ##"
 
 aws eks update-kubeconfig --region "$region" --name "$cluster_name"
