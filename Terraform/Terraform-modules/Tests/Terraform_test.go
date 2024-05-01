@@ -5,32 +5,57 @@ import (
 	"time"
 	"net/http"
 	"github.com/gruntwork-io/terratest/modules/terraform"
+	"os"
+	"os/exec"
 )
 
 // An example of how to test the Terraform module in examples/terraform-http-example using Terratest.
 func TestTerraformHttpExample(t *testing.T) {
 	t.Parallel()
-
-	// Construct the terraform options with default retryable errors to handle the most common retryable errors in
-	// terraform testing.
 	terraformOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
 		// The path to where our Terraform code is located
 		TerraformDir: "../Deployment",
 	})
 
-	// At the end of the test, run `terraform destroy` to clean up any resources that were created
 	defer terraform.Destroy(t, terraformOptions)
 
+	cluster_name := os.Getenv("CLUSTER_NAME")
+	account_ID := os.Getenv("ACCOUNT_ID")
+	Path_To_Root := os.Getenv("ROOT_PATH")
+
+	runScript := func() {
+		// Run your script using the os/exec package
+		cmd := exec.Command("../../../ArgoCD/ArgoCD-destroy.sh",
+			"-c", cluster_name,
+			"-a", account_ID,
+			"-p", Path_To_Root,
+		)
+		
+		cmd.Stdout = os.Stdout
+		cmd.Stderr = os.Stderr
+		
+		// Run the script and check for errors
+		err := cmd.Run()
+		if err != nil {
+			t.Errorf("Error running script: %v", err)
+		}
+		
+		// Wait for the script to finish executing
+		cmd.Wait()
+	}
+
+	defer runScript()
+	
 	// This will run `terraform init` and `terraform apply` and fail the test if there are any errors
 	terraform.InitAndApply(t, terraformOptions)
 
 	url := "https://argocd.whats-the-weather.com"
 
 	// Send HTTPS GET request
-    maxRetries := 3
+    maxRetries := 10
 
     // Define the interval between retries
-    retryInterval := 5 * time.Second
+    retryInterval := 10 * time.Second
 
     // Loop for retries
     for attempt := 1; attempt <= maxRetries; attempt++ {

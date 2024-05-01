@@ -1,7 +1,23 @@
 #!/bin/bash
 
-cluster_name="<your cluster name>"
-account_ID="<your account ID>"
+cluster_name=""
+account_ID=""
+Path_To_Root=""
+
+while getopts r:c:a:p: flag
+do
+    case "${flag}" in
+        c)  
+            cluster_name=${OPTARG};;
+        a)  
+            account_ID=${OPTARG};;
+        p)  
+            Path_To_Root=${OPTARG};;
+        *)  
+            echo "Invalid option: $1"
+            exit 1;;
+    esac
+done
 
 #delete the ingress first to remove the records from route53
 kubectl -n argocd delete ingress argocd-ingress
@@ -38,5 +54,5 @@ eksctl delete iamserviceaccount \
     --cluster "$cluster_name"
 
 kubectl -n argocd delete -f /Users/ben/Documents/WeatherApp-EKS-Helm/ArgoCD/Ingress-service.yaml
-    
+
 echo "Cleanup completed."
