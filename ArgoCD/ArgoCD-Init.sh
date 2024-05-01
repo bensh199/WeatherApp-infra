@@ -42,11 +42,14 @@ echo "## Creating Service Account For The LoadBalancer Controller ##"
 
 curl -O https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/v2.7.1/docs/install/iam_policy.json
 
+echo "## Create LoadBalancer Policy ##"
 aws iam create-policy \
     --policy-name AWSLoadBalancerControllerIAMPolicy \
     --policy-document file://iam_policy.json
 
 rm iam_policy.json
+
+echo "## Create LoadBalancer ServiceAccount ##"
 
 eksctl create iamserviceaccount \
     --cluster "$cluster_name" \
@@ -58,9 +61,13 @@ eksctl create iamserviceaccount \
 
 sleep 15
 
+echo "## add eks repo ##"
+
 helm repo add eks https://aws.github.io/eks-charts
 
 helm repo update eks
+
+echo "## install controller helm charts ##"
 
 helm install aws-load-balancer-controller eks/aws-load-balancer-controller \
     -n kube-system \
@@ -75,6 +82,8 @@ kubectl get deployment -n kube-system aws-load-balancer-controller
 echo "## Deploying ArgoCD ##"
 
 sleep 10
+
+echo "## Add the repo ##"
 
 helm repo add argo https://argoproj.github.io/argo-helm
 
