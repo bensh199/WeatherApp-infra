@@ -3,6 +3,11 @@
 cluster_name="<your cluster name>"
 account_ID="<your account ID>"
 
+#delete the ingress first to remove the records from route53
+kubectl -n argocd delete ingress argocd-ingress
+
+sleep 70
+
 # Delete Argo CD
 helm uninstall my-argo-cd --namespace argocd
 

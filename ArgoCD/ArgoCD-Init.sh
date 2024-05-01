@@ -3,6 +3,7 @@
 region=""
 cluster_name=""
 account_ID=""
+Path_To_Root=""
 
 while [[ $# -gt 0 ]]; do
     case "$1" in
@@ -14,6 +15,9 @@ while [[ $# -gt 0 ]]; do
             ;;
         --account_ID=*)
             account_ID="${1#*=}"
+            ;;
+        --Path_To_Root=*)
+            Path_To_Root="${1#*=}"
             ;;
 
         *)
@@ -28,7 +32,9 @@ echo "$region"
 
 echo "$cluster_name"
 
-echo "$region"
+echo "$account_ID" 
+
+echo "$Path_To_Root"
 
 
 echo "## Configuring kube config ##"
@@ -78,9 +84,9 @@ helm repo add argo https://argoproj.github.io/argo-helm
 kubectl create namespace argocd
 
 
-helm install my-argo-cd argo/argo-cd --version 6.7.3 --namespace argocd --values ./values.yaml
+helm install my-argo-cd argo/argo-cd --version 6.7.3 --namespace argocd --values "$Path_To_Root"/WeatherApp-infra/ArgoCD/values.yaml
 
-kubectl -n argocd apply -f ./Ingress-service.yaml
+kubectl -n argocd apply -f "$Path_To_Root"/WeatherApp-infra/ArgoCD/Ingress-service.yaml
 
 sleep 25
 
@@ -102,4 +108,4 @@ eksctl create iamserviceaccount \
     --attach-policy-arn arn:aws:iam::"$account_ID":policy/ExternalDNS \
     --approve
 
-kubectl -n default apply -f ./External-DNS.yaml
+kubectl -n default apply -f "$Path_To_Root"/WeatherApp-infra/ArgoCD/External-DNS.yaml
