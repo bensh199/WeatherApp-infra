@@ -40,9 +40,9 @@ module "externa-dns" {
 #   oidc_provider_arn = module.iam-oidc.oidc_arn
 # }
 
-resource "null_resource" "ArgoCD-Init-Script" {
-  provisioner "local-exec" {
-    command = "sh ${var.ROOT_PATH}/WeatherApp-infra/ArgoCD/ArgoCD-Init.sh -a ${data.aws_caller_identity.current.account_id} -r ${var.aws_region} -c ${module.eks.cluster_name} -p ${var.ROOT_PATH}; export CLUSTER_NAME=${module.eks.cluster_name} ACCOUNT_ID=${data.aws_caller_identity.current.account_id}"
-  }
-  depends_on = [module.network, module.eks, module.iam-oidc]
-}
+# resource "null_resource" "ArgoCD-Init-Script" {
+#   provisioner "local-exec" {
+#     command = "sh ${var.ROOT_PATH}/WeatherApp-infra/ArgoCD/ArgoCD-Init.sh -a ${data.aws_caller_identity.current.account_id} -r ${var.aws_region} -c ${module.eks.cluster_name} -p ${var.ROOT_PATH}; export CLUSTER_NAME=${module.eks.cluster_name} ACCOUNT_ID=${data.aws_caller_identity.current.account_id}"
+#   }
+#   depends_on = [module.network, module.eks, module.iam-oidc]
+# }
