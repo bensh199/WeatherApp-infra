@@ -29,19 +29,19 @@ module "iam-oidc" {
   depends_on          = [module.network]
 }
 
-# module "externa-dns" {
-#   source = "../../../../WeatherApp-infra/Terraform/Terraform-modules/modules/exteral"
-#   oidc-arn = module.iam-oidc.oidc_arn
-#   oidc-issuer = module.eks.eks_oidc_issuer_url
-#   depends_on = [ null_resource.update_kubeconfig ]
-# }
+module "externa-dns" {
+  source = "../../../../WeatherApp-infra/Terraform/Terraform-modules/modules/exteral"
+  oidc-arn = module.iam-oidc.oidc_arn
+  oidc-issuer = module.eks.eks_oidc_issuer_url
+  depends_on = [ null_resource.update_kubeconfig ]
+}
 
-# resource "null_resource" "update_kubeconfig" {
-#   provisioner "local-exec" {
-#     command = "aws eks update-kubeconfig --name ${module.eks.cluster_name} --region ${var.aws_region}" 
-#   }
-#   depends_on = [module.eks]
-# }
+resource "null_resource" "update_kubeconfig" {
+  provisioner "local-exec" {
+    command = "aws eks update-kubeconfig --name ${module.eks.cluster_name} --region ${var.aws_region}" 
+  }
+  depends_on = [module.eks]
+}
 
 # module "roles" {
 #   source = "../modules/roles"
