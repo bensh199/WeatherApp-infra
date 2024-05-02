@@ -44,29 +44,29 @@ resource "aws_iam_policy" "node-group-volume-access" {
   })
 }
 
-resource "aws_iam_policy" "ExternalDNS-Role" {
-  name        = "ExternalDNS"
-  description = "Policy for Route 53 actions"
-  policy      = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Effect   = "Allow"
-        Action   = ["route53:ChangeResourceRecordSets"]
-        Resource = ["*"]
-      },
-      {
-        Effect   = "Allow"
-        Action   = [
-          "route53:ListHostedZones",
-          "route53:ListResourceRecordSets",
-          "route53:ListTagsForResource"
-        ]
-        Resource = ["*"]
-      }
-    ]
-  })
-}
+# resource "aws_iam_policy" "ExternalDNS-Role" {
+#   name        = "ExternalDNS"
+#   description = "Policy for Route 53 actions"
+#   policy      = jsonencode({
+#     Version = "2012-10-17"
+#     Statement = [
+#       {
+#         Effect   = "Allow"
+#         Action   = ["route53:ChangeResourceRecordSets"]
+#         Resource = ["*"]
+#       },
+#       {
+#         Effect   = "Allow"
+#         Action   = [
+#           "route53:ListHostedZones",
+#           "route53:ListResourceRecordSets",
+#           "route53:ListTagsForResource"
+#         ]
+#         Resource = ["*"]
+#       }
+#     ]
+#   })
+# }
   
 # Attach policies to the EKS node group role
 resource "aws_iam_role_policy_attachment" "node-group-volume-access" {

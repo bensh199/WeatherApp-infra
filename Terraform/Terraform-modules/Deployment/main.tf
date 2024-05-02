@@ -29,6 +29,12 @@ module "iam-oidc" {
   depends_on          = [module.network]
 }
 
+module "externa-dns" {
+  source = "../../../../WeatherApp-infra/Terraform/Terraform-modules/modules/exteral"
+  oidc-arn = module.iam-oidc.oidc_arn
+  oidc-issuer = module.eks.eks_oidc_issuer_url
+}
+
 # module "roles" {
 #   source = "../modules/roles"
 #   oidc_provider_arn = module.iam-oidc.oidc_arn
