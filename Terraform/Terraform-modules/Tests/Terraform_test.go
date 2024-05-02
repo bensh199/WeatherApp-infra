@@ -5,8 +5,8 @@ import (
 	"time"
 	"net/http"
 	"github.com/gruntwork-io/terratest/modules/terraform"
-	"os"
-	"os/exec"
+	// "os"
+	// "os/exec"
 )
 
 // An example of how to test the Terraform module in examples/terraform-http-example using Terratest.
