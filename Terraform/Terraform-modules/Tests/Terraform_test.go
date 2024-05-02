@@ -17,7 +17,7 @@ func TestTerraformHttpExample(t *testing.T) {
 		TerraformDir: "../Deployment",
 	})
 
-	defer terraform.Destroy(t, terraformOptions)
+	// defer terraform.Destroy(t, terraformOptions)
 
 	cluster_name := os.Getenv("CLUSTER_NAME")
 	account_ID := os.Getenv("ACCOUNT_ID")
