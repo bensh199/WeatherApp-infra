@@ -1,12 +1,14 @@
 package test
 
 import (
-	"testing"
-	"time"
 	"net/http"
-	"github.com/gruntwork-io/terratest/modules/terraform"
 	// "os"
 	// "os/exec"
+	// "strings"
+	"testing"
+	"time"
+
+	"github.com/gruntwork-io/terratest/modules/terraform"
 )
 
 // An example of how to test the Terraform module in examples/terraform-http-example using Terratest.
@@ -46,6 +48,27 @@ func TestTerraformHttpExample(t *testing.T) {
 
 	// defer runScript()
 	
+	// Git_Token := os.Getenv("GIT_TOKEN")
+
+	// cmdGetArgoPassword := exec.Command("argocd", "admin", "initial-password", "-n", "argocd")
+	// argopassword, err := cmdGetArgoPassword.Output()
+
+	// if err != nil {
+	// 	t.Fatalf("Error retrieving ArgoCD admin initial password: %v", err)
+	// }
+
+	// // Trim any leading/trailing whitespace or newline characters from the password
+	// argopasswordStr := string(argopassword)
+	// argopasswordStr = strings.TrimSpace(argopasswordStr)
+
+	// // Set up ArgoCD login command
+	// cmdArgoLogin := exec.Command("argocd", "login", "argocd.whats-the-weather.com:443", "--username", "admin", "--password", argopasswordStr)
+
+	// // Run the ArgoCD login command
+	// if err := cmdArgoLogin.Run(); err != nil {
+	// 	t.Fatalf("Error logging in to ArgoCD: %v", err)
+	// }
+
 	// This will run `terraform init` and `terraform apply` and fail the test if there are any errors
 	terraform.InitAndApply(t, terraformOptions)
 

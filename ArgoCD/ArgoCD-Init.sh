@@ -106,11 +106,4 @@ eksctl create iamserviceaccount \
     --attach-policy-arn arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy \
     --approve
 
-# eksctl create iamserviceaccount \
-#     --name external-dns \
-#     --namespace default \
-#     --cluster "$cluster_name" \
-#     --attach-policy-arn arn:aws:iam::"$account_ID":policy/ExternalDNS \
-#     --approve
-
 kubectl -n default apply -f "$Path_To_Root"/WeatherApp-infra/ArgoCD/External-DNS.yaml
