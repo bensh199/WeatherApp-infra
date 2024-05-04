@@ -11,5 +11,5 @@ resource "helm_release" "argocd" {
   version    = "6.7.3"
   namespace  = "argocd"
   timeout    = "1200"
-  values     = [templatefile("${var.ROOT_PATH}/ArgoCD/values.yaml", {})]
+  values     = [templatefile("${var.ROOT_PATH}/WeatherApp-infra/ArgoCD/values.yaml", {})]
 }
