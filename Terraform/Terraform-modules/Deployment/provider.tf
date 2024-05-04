@@ -14,6 +14,10 @@ provider "argocd" {
   password    = var.ARGOCD_PASS
 }
 
+provider "kubernetes" {
+  config_path    = var.config_path
+}
+
 terraform {
   backend "s3" {
     bucket         = "weatherapp-eks-state-backend"
@@ -33,6 +37,10 @@ terraform {
     argocd = {
       source = "oboukili/argocd"
       version = "6.1.1"
+    }
+    kubernetes = {
+      source = "hashicorp/kubernetes"
+      version = "2.29.0"
     }
   }
 }
