@@ -87,7 +87,7 @@ module "argocd-repositorys" {
   argo-initial-pass = var.ARGOCD_PASS
   repo-username = var.REPO_USERNAME
   repo-PAT = var.HELM_REPO_PAT
-  depends_on = [ null_resource.argocd-init-password ]
+  depends_on = [ null_resource.login-to-argocd ]
 }
 
 module "deploy-weatherapp" {
