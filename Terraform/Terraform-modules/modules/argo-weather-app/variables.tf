@@ -1,7 +1,15 @@
-variable "cluster-endpoint" {
+# variable "cluster-endpoint" {
+#   type = string
+# }
+
+# variable "cluster-CA" {
+#   type = string
+# }
+
+variable "REPO_PAT" {
   type = string
 }
 
-variable "cluster-CA" {
+variable "ROOT_PATH" {
   type = string
 }

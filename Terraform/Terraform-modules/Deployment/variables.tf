@@ -36,7 +36,7 @@ variable "REPO_USERNAME" {
   type = string
 }
 
-variable "REPO_PAT" {
+variable "HELM_REPO_PAT" {
   type = string
 }
 

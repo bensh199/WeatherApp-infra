@@ -19,34 +19,34 @@ func TestTerraformHttpExample(t *testing.T) {
 		TerraformDir: "../Deployment",
 	})
 
-	defer terraform.Destroy(t, terraformOptions)
+	// defer terraform.Destroy(t, terraformOptions)
 
-	cluster_name := os.Getenv("CLUSTER_NAME")
-	account_ID := os.Getenv("ACCOUNT_ID")
-	Path_To_Root := os.Getenv("ROOT_PATH")
+	// cluster_name := os.Getenv("CLUSTER_NAME")
+	// account_ID := os.Getenv("ACCOUNT_ID")
+	// Path_To_Root := os.Getenv("ROOT_PATH")
 
-	runScript := func() {
-		// Run your script using the os/exec package
-		cmd := exec.Command("../../../ArgoCD/ArgoCD-destroy.sh",
-			"-c", cluster_name,
-			"-a", account_ID,
-			"-p", Path_To_Root,
-		)
+	// runScript := func() {
+	// 	// Run your script using the os/exec package
+	// 	cmd := exec.Command("../../../ArgoCD/ArgoCD-destroy.sh",
+	// 		"-c", cluster_name,
+	// 		"-a", account_ID,
+	// 		"-p", Path_To_Root,
+	// 	)
 		
-		cmd.Stdout = os.Stdout
-		cmd.Stderr = os.Stderr
+	// 	cmd.Stdout = os.Stdout
+	// 	cmd.Stderr = os.Stderr
 		
-		// Run the script and check for errors
-		err := cmd.Run()
-		if err != nil {
-			t.Errorf("Error running script: %v", err)
-		}
+	// 	// Run the script and check for errors
+	// 	err := cmd.Run()
+	// 	if err != nil {
+	// 		t.Errorf("Error running script: %v", err)
+	// 	}
 		
-		// Wait for the script to finish executing
-		cmd.Wait()
-	}
+	// 	// Wait for the script to finish executing
+	// 	cmd.Wait()
+	// }
 
-	defer runScript()
+	// defer runScript()
 	
 	// Git_Token := os.Getenv("GIT_TOKEN")
 
