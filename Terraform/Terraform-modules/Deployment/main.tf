@@ -28,7 +28,15 @@ module "iam-oidc" {
   eks_oidc_issuer_url = module.eks.eks_oidc_issuer_url
   depends_on          = [module.network]
 }
-
+resource "null_resource" "update_kubeconfig" {
+  triggers = {
+    always_run = "${timestamp()}"
+  }
+  provisioner "local-exec" {
+    command = "aws eks update-kubeconfig --name ${module.eks.cluster_name} --region ${var.aws_region} && sleep 30" 
+  }
+  depends_on = [module.eks]
+}
 module "eks-albcontroller" {
   source = "../../../../WeatherApp-infra/Terraform/Terraform-modules/modules/eks-albcontroller"
   cluster_name = module.eks.cluster_name
@@ -46,21 +54,11 @@ module "eks-csi" {
   oidc_provider_arn = module.iam-oidc.oidc_arn
 }
 
-module "externa-dns" {
+module "external-dns" {
   source = "../../../../WeatherApp-infra/Terraform/Terraform-modules/modules/external-dns"
   oidc-arn = module.iam-oidc.oidc_arn
   oidc-issuer = module.eks.eks_oidc_issuer_url
   depends_on = [ module.eks-albcontroller ]
-}
-
-resource "null_resource" "update_kubeconfig" {
-  triggers = {
-    always_run = "${timestamp()}"
-  }
-  provisioner "local-exec" {
-    command = "aws eks update-kubeconfig --name ${module.eks.cluster_name} --region ${var.aws_region} && sleep 30" 
-  }
-  depends_on = [module.eks, module.externa-dns]
 }
 
 module "argocd" {
