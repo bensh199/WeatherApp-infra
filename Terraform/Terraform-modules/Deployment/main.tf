@@ -69,15 +69,15 @@ module "argocd" {
   depends_on = [ null_resource.update_kubeconfig ]
 }
 
-resource "null_resource" "argocd-init-password" {
+resource "null_resource" "login-to-argocd" {
   triggers = {
     always_run = "${timestamp()}"
   }
   provisioner "local-exec" {
-    command     = "kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath={.data.password} | base64 -d"
-    environment = {
-      ARGO_PASS = "${self.triggers.always_run}"
-    }
+    command     = "ARGOCD_PASSWORD=$(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath={.data.password} | base64 -d) && argocd login ${var.argocd_server_addr}:443 --username admin --password $ARGOCD_PASSWORD"
+    # environment = {
+    #   ARGOCD_AUTH_PASSWORD = "${self.triggers.always_run}"
+    # }
   }
   depends_on = [ module.argocd ]
 }
