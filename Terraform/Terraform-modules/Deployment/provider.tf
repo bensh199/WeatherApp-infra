@@ -11,7 +11,12 @@ provider "helm" {
 provider "argocd" {
   server_addr = "argocd.whats-the-weather.com:443"
   username    = "admin"
-  password    = "9-O3CKoWHB-B9JeR"
+  dynamic "password" {
+    for_each = [null_resource.argocd-init-password]
+    content {
+      password = password.value["ARGO_PASS"]
+    }
+  }
 }
 
 provider "kubernetes" {

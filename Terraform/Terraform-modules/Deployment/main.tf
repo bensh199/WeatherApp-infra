@@ -74,7 +74,10 @@ resource "null_resource" "argocd-init-password" {
     always_run = "${timestamp()}"
   }
   provisioner "local-exec" {
-    command     = "export TF_VAR_ARGOCD_PASS=$(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath={.data.password} | base64 -d)"
+    command     = "kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath={.data.password} | base64 -d"
+    environment = {
+      ARGO_PASS = "${self.triggers.always_run}"
+    }
   }
   depends_on = [ module.argocd ]
 }
