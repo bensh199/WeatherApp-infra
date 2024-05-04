@@ -69,15 +69,12 @@ module "argocd" {
   depends_on = [ null_resource.update_kubeconfig ]
 }
 
-resource "null_resource" "login-to-argocd" {
+resource "null_resource" "argocd-init-password" {
   triggers = {
     always_run = "${timestamp()}"
   }
   provisioner "local-exec" {
-    command     = "ARGOCD_PASSWORD=$(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath={.data.password} | base64 -d) && argocd login ${var.argocd_server_addr}:443 --username admin --password $ARGOCD_PASSWORD"
-    # environment = {
-    #   ARGOCD_AUTH_PASSWORD = "${self.triggers.always_run}"
-    # }
+    command     = "export TF_VAR_ARGOCD_PASS=$(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath={.data.password} | base64 -d)"
   }
   depends_on = [ module.argocd ]
 }
@@ -87,7 +84,7 @@ module "argocd-repositorys" {
   argo-initial-pass = var.ARGOCD_PASS
   repo-username = var.REPO_USERNAME
   repo-PAT = var.HELM_REPO_PAT
-  depends_on = [ null_resource.login-to-argocd ]
+  depends_on = [ null_resource.argocd-init-password ]
 }
 
 module "deploy-weatherapp" {

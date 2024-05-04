@@ -29,7 +29,6 @@ variable "ROOT_PATH" {
 variable "ARGOCD_PASS" {
   description = "will be aquiered by local exec"
   type = string
-  default = "9-O3CKoWHB-B9JeR"
 }
 
 variable "REPO_USERNAME" {
