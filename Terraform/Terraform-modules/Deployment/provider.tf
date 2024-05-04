@@ -2,6 +2,18 @@ provider "aws" {
   region = "il-central-1"
 }
 
+provider "helm" {
+  kubernetes {
+    config_path = var.config_path
+  }
+}
+
+provider "argocd" {
+  server_addr = "argocd.whats-the-weather.com:443"
+  username    = "admin"
+  password    = var.ARGOCD_PASS
+}
+
 terraform {
   backend "s3" {
     bucket         = "weatherapp-eks-state-backend"
@@ -14,9 +26,13 @@ terraform {
       source  = "hashicorp/aws"
       version = "~> 5.0"
     }
-    kubectl = {
-      source  = "gavinbunney/kubectl"
-      version = ">= 1.14.0"
+    # kubectl = {
+    #   source  = "gavinbunney/kubectl"
+    #   version = ">= 1.14.0"
+    # }
+    argocd = {
+      source = "oboukili/argocd"
+      version = "6.1.1"
     }
   }
 }
