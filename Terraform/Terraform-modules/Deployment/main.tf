@@ -33,7 +33,7 @@ resource "null_resource" "update_kubeconfig" {
     always_run = "${timestamp()}"
   }
   provisioner "local-exec" {
-    command = "aws eks update-kubeconfig --name ${module.eks.cluster_name} --region ${var.aws_region} && sleep 30" 
+    command = "aws eks update-kubeconfig --name ${module.eks.cluster_name} --region ${var.aws_region}" 
   }
   depends_on = [module.eks]
 }
@@ -74,11 +74,7 @@ resource "null_resource" "argocd-init-password" {
     always_run = "${timestamp()}"
   }
   provisioner "local-exec" {
-    command     = <<-EOT
-      TF_VAR_ARGOCD_PASS=$(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath={.data.password} | base64 -d);
-      echo $TF_VAR_ARGOCD_PASS | tr -d '%';
-      export TF_VAR_ARGOCD_PASS=$TF_VAR_ARGOCD_PASS
-    EOT
+    command     = "export TF_VAR_ARGOCD_PASS=$(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath={.data.password} | base64 -d)"
   }
   depends_on = [ module.argocd ]
 }
