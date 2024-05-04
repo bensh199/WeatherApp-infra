@@ -53,6 +53,4 @@ eksctl delete iamserviceaccount \
     --namespace default \
     --cluster "$cluster_name"
 
-kubectl -n argocd delete -f "$Path_To_Root"/WeatherApp-infra/ArgoCD/Ingress-service.yaml
-
 echo "Cleanup completed."

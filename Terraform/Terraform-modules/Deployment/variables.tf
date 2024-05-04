@@ -25,3 +25,22 @@ variable "vpc_cidr" {
 variable "ROOT_PATH" {
   description = "Root path for the project"
 }
+
+variable "ARGOCD_PASS" {
+  description = "will be aquiered by local exec"
+  type = string
+  default = ""
+}
+
+variable "REPO_USERNAME" {
+  type = string
+}
+
+variable "REPO_PAT" {
+  type = string
+}
+
+variable "config_path" {
+  type = string
+  default = "~/.kube/config"
+}

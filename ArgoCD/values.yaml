@@ -5,3 +5,17 @@ configs:
 server:
   service:
     type: NodePort
+  ingress:
+    enabled: true
+    controller: aws
+    annotations: {
+      kubernetes.io/ingress.class: "alb",
+      alb.ingress.kubernetes.io/scheme: "internet-facing",
+      alb.ingress.kubernetes.io/target-type: "instance",
+      alb.ingress.kubernetes.io/certificate-arn: "arn:aws:acm:il-central-1:654654166113:certificate/a87578f3-7806-45c0-9f45-475753d137e1"
+    }
+    hostname: "argocd.whats-the-weather.com"
+    path: /*
+    pathType: ImplementationSpecific
+  ingressGrpc:
+    pathType: ImplementationSpecific

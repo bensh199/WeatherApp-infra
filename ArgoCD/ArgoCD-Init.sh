@@ -36,7 +36,7 @@ echo "$Path_To_Root"
 
 echo "## Configuring kube config ##"
 
-aws eks update-kubeconfig --region "$region" --name "$cluster_name"
+# aws eks update-kubeconfig --region "$region" --name "$cluster_name"
 
 echo "## Creating Service Account For The LoadBalancer Controller ##"
 
@@ -79,21 +79,21 @@ sleep 20
 
 kubectl get deployment -n kube-system aws-load-balancer-controller
 
-echo "## Deploying ArgoCD ##"
+# echo "## Deploying ArgoCD ##"
 
-sleep 10
+# sleep 10
 
-echo "## Add the repo ##"
+# echo "## Add the repo ##"
 
-helm repo add argo https://argoproj.github.io/argo-helm
+# helm repo add argo https://argoproj.github.io/argo-helm
 
-kubectl create namespace argocd
+# kubectl create namespace argocd
 
-helm install my-argo-cd argo/argo-cd --version 6.7.3 --namespace argocd --values "$Path_To_Root"/WeatherApp-infra/ArgoCD/values.yaml
+# helm install my-argo-cd argo/argo-cd --version 6.7.3 --namespace argocd --values "$Path_To_Root"/WeatherApp-infra/ArgoCD/values.yaml
 
-kubectl -n argocd apply -f "$Path_To_Root"/WeatherApp-infra/ArgoCD/Ingress-service.yaml
+# kubectl -n argocd apply -f "$Path_To_Root"/WeatherApp-infra/ArgoCD/Ingress-service.yaml
 
-sleep 25
+# sleep 25
 
 kubectl get pods -n argocd
 
@@ -106,4 +106,4 @@ eksctl create iamserviceaccount \
     --attach-policy-arn arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy \
     --approve
 
-kubectl -n default apply -f "$Path_To_Root"/WeatherApp-infra/ArgoCD/External-DNS.yaml
+# kubectl -n default apply -f "$Path_To_Root"/WeatherApp-infra/ArgoCD/External-DNS.yaml

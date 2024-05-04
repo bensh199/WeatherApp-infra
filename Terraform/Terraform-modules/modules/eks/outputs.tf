@@ -6,3 +6,11 @@ output "eks_oidc_issuer_url" {
 output "cluster_name" {
   value = aws_eks_cluster.Lab4-EKS.name
 }
+
+output "cluster_endpoint" {
+  value = aws_eks_cluster.Lab4-EKS.endpoint
+}
+
+output "cluster_ca_certificate" {
+  value = aws_eks_cluster.Lab4-EKS.certificate_authority
+}
