@@ -9,6 +9,7 @@ provider "helm" {
 }
 
 provider "argocd" {
+  server_addr = "argocd.whats-the-weather.com:443"
   use_local_config = true
 }
 
