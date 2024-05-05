@@ -15,3 +15,7 @@ output "nodes_subnet_ids" {
     aws_subnet.Private-Lab4-il-central-1b[*].id
   )
 }
+
+output "vpc_id" {
+  value = aws_vpc.main.id
+}

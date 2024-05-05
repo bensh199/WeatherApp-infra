@@ -26,10 +26,10 @@ terraform {
     dynamodb_table = "WeatherApp-Eks-state-backend"
   }
   required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 5.0"
-    }
+    # aws = {
+    #   source  = "hashicorp/aws"
+    #   version = "~> 5.0"
+    # }
     # kubectl = {
     #   source  = "gavinbunney/kubectl"
     #   version = ">= 1.14.0"
@@ -38,9 +38,9 @@ terraform {
       source = "oboukili/argocd"
       version = "6.1.1"
     }
-    kubernetes = {
-      source = "hashicorp/kubernetes"
-      version = "2.29.0"
-    }
+    # kubernetes = {
+    #   source = "hashicorp/kubernetes"
+    #   version = "2.29.0"
+    # }
   }
 }
